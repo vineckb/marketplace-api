@@ -1,10 +1,10 @@
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
-import { Merchant } from './merchant.entity';
-import { Section } from './section.entity';
+import { MerchantEntity } from './merchant.entity';
+import { SectionEntity } from './section.entity';
 
 @ObjectType()
 @Directive('@key(fields: "_id")')
-export class Product {
+export class ProductEntity {
   @Field(() => ID)
   _id: string;
 
@@ -23,9 +23,9 @@ export class Product {
   @Field()
   availableQuantity: number;
 
-  @Field(() => Merchant)
-  merchant: Merchant;
+  @Field(() => MerchantEntity)
+  merchant: MerchantEntity;
 
-  @Field(() => Section)
-  section: Section;
+  @Field(() => SectionEntity)
+  section: SectionEntity;
 }

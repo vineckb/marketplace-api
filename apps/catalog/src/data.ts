@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { Product } from './products/entities/product.entity';
+import { ProductEntity } from './products/entities/product.entity';
 
-export const products: Product[] = Array.from({ length: 10 }).map(() => {
+export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
   const price = +faker.commerce.price();
   const promotionalPrice = +faker.commerce.price({ max: price });
 

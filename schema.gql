@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Merchant {
+type MerchantEntity {
   _id: ID!
   name: String!
   media: String!
@@ -11,42 +11,67 @@ type Merchant {
   lng: Float!
 }
 
-type Section {
+type SectionEntity {
   _id: String!
   name: String!
   media: String!
 }
 
-type Product {
+type ProductEntity {
   _id: ID!
   title: String!
   media: String!
   price: Float!
   promotionalPrice: Float!
   availableQuantity: Float!
-  merchant: Merchant!
-  section: Section!
-  resolveReference: Product!
+  merchant: MerchantEntity!
+  section: SectionEntity!
+  resolveReference: ProductEntity!
 }
 
 type Query {
-  products: [Product!]!
-  product(id: String!): Product!
+  products: [ProductEntity!]!
+  product(id: String!): ProductEntity!
 }
 
 type Mutation {
-  createProduct(createProductInput: CreateProductInput!): Product!
-  updateProduct(updateProductInput: UpdateProductInput!): Product!
-  removeProduct(id: String!): Product!
+  createProduct(data: CreateProductInput!): ProductEntity!
+  updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
+  removeProduct(id: String!): ProductEntity!
 }
 
 input CreateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  media: String!
+  price: Float!
+  promotionalPrice: Float!
+  availableQuantity: Float!
+  merchant: MerchantInput!
+  section: SectionInput!
+}
+
+input MerchantInput {
+  _id: String!
+  name: String!
+  media: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
+input SectionInput {
+  _id: String!
+  name: String!
+  media: String!
 }
 
 input UpdateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  media: String
+  price: Float
+  promotionalPrice: Float
+  availableQuantity: Float
+  merchant: MerchantInput
+  section: SectionInput
   _id: Int!
 }

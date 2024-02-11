@@ -2,7 +2,7 @@ import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
 
 @ObjectType()
 @Directive('@key(fields: "_id")')
-export class Merchant {
+export class MerchantEntity {
   @Field(() => ID)
   _id: string;
 

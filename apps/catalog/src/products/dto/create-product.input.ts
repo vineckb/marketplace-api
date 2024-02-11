@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { Merchant } from '../entities/merchant.entity';
-import { Section } from '../entities/section.entity';
+import { MerchantInput } from './merchant-input';
+import { SectionInput } from './section-input';
 
 @InputType()
 export class CreateProductInput {
@@ -19,9 +19,9 @@ export class CreateProductInput {
   @Field()
   availableQuantity: number;
 
-  @Field(() => Merchant)
-  merchant: Merchant;
+  @Field(() => MerchantInput)
+  merchant: MerchantInput;
 
-  @Field(() => Section)
-  section: Section;
+  @Field(() => SectionInput)
+  section: SectionInput;
 }
