@@ -20,7 +20,11 @@ export class ProductsService {
   }
 
   async findOne(_id: string) {
-    return products.find((product) => product._id === _id);
+    const product = products.find((product) => product._id === _id);
+    if (!product) {
+      throw new Error(`Product #${_id} not found`);
+    }
+    return product;
   }
 
   async update(_id: string, updateProductInput: UpdateProductInput) {
