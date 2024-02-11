@@ -8,13 +8,13 @@ import { UpdateProductInput } from './dto/update-product.input';
 export class ProductsResolver {
   constructor(private readonly productService: ProductsService) {}
 
-  @Query(() => [ProductEntity], { name: 'products' })
-  findAll() {
+  @Query(() => [ProductEntity])
+  getProducts() {
     return this.productService.findAll();
   }
 
-  @Query(() => ProductEntity, { name: 'product' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  @Query(() => ProductEntity)
+  getProduct(@Args('id', { type: () => String }) id: string) {
     return this.productService.findOne(id);
   }
 
@@ -24,13 +24,8 @@ export class ProductsResolver {
   }
 
   @Mutation(() => ProductEntity)
-  updateProduct(
-    @Args('updateProductInput') updateProductInput: UpdateProductInput,
-  ) {
-    return this.productService.update(
-      updateProductInput._id,
-      updateProductInput,
-    );
+  updateProduct(@Args('data') data: UpdateProductInput) {
+    return this.productService.update(data._id, data);
   }
 
   @Mutation(() => ProductEntity)

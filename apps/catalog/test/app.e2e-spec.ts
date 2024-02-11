@@ -31,10 +31,10 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
 
         return request(app.getHttpServer())
           .post(gql)
-          .send({ query: '{products {_id title }}' })
+          .send({ query: '{getProducts {_id title }}' })
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.products).toEqual(expectedPayload);
+            expect(res.body.data.getProducts).toEqual(expectedPayload);
           });
       });
 
@@ -47,11 +47,11 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
           return request(app.getHttpServer())
             .post(gql)
             .send({
-              query: `{product(id:"${product._id}"){_id title}}`,
+              query: `{getProduct(id:"${product._id}"){_id title}}`,
             })
             .expect(200)
             .expect((res) => {
-              expect(res.body.data.product).toEqual(product);
+              expect(res.body.data.getProduct).toEqual(product);
             });
         });
         it('should get an error for bad id', () => {
@@ -59,7 +59,7 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
             request(app.getHttpServer())
               .post(gql)
               .send({
-                query: `{product(id:"not-found-id"){_id title}}`,
+                query: `{getProduct(id:"not-found-id"){_id title}}`,
               })
               .expect(200)
               // break
@@ -106,12 +106,13 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
           .then(() =>
             request(app.getHttpServer())
               .post(gql)
-              .send({ query: '{products {_id title}}' })
+              .send({ query: '{getProducts {_id title}}' })
               .expect(200)
               .expect((res) => {
                 expect(
-                  res.body.data.products[res.body.data.products.length - 1]
-                    .title,
+                  res.body.data.getProducts[
+                    res.body.data.getProducts.length - 1
+                  ].title,
                 ).toEqual('Created Product');
               }),
           );

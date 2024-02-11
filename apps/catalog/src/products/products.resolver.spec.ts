@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsResolver } from './products.resolver';
 import { ProductsService } from './products.service';
 import { CreateProductInput } from './dto/create-product.input';
-import { Product } from './entities/product.entity';
+import { ProductEntity } from './entities/product.entity';
 import { products } from '../data';
 import { UpdateProductInput } from './dto/update-product.input';
 
@@ -58,7 +58,7 @@ describe('ProductsResolver', () => {
         },
       };
 
-      const createdProduct: Product = {
+      const createdProduct: ProductEntity = {
         ...createProductInput,
         _id: '1',
       };
@@ -78,7 +78,7 @@ describe('ProductsResolver', () => {
     it('should call productService.findAll and return the result', async () => {
       jest.spyOn(productService, 'findAll').mockResolvedValueOnce(products);
 
-      const result = await resolver.findAll();
+      const result = await resolver.getProducts();
 
       expect(productService.findAll).toHaveBeenCalled();
       expect(result).toEqual(products);
@@ -90,9 +90,9 @@ describe('ProductsResolver', () => {
       const product = products[0];
       jest.spyOn(productService, 'findOne').mockResolvedValueOnce(product);
 
-      const result = await resolver.findOne('1');
+      const result = await resolver.getProduct(product._id);
 
-      expect(productService.findOne).toHaveBeenCalledWith('1');
+      expect(productService.findOne).toHaveBeenCalledWith(product._id);
       expect(result).toEqual(product);
     });
   });
@@ -121,7 +121,7 @@ describe('ProductsResolver', () => {
         },
       };
 
-      const updatedProduct = updateProductInput as Product;
+      const updatedProduct = updateProductInput as ProductEntity;
 
       jest
         .spyOn(productService, 'update')

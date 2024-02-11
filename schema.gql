@@ -30,13 +30,13 @@ type ProductEntity {
 }
 
 type Query {
-  products: [ProductEntity!]!
-  product(id: String!): ProductEntity!
+  getProducts: [ProductEntity!]!
+  getProduct(id: String!): ProductEntity!
 }
 
 type Mutation {
   createProduct(data: CreateProductInput!): ProductEntity!
-  updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
+  updateProduct(data: UpdateProductInput!): ProductEntity!
   removeProduct(id: String!): ProductEntity!
 }
 
