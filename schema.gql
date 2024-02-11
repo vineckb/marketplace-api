@@ -1,0 +1,52 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Merchant {
+  _id: ID!
+  name: String!
+  media: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
+type Section {
+  _id: String!
+  name: String!
+  media: String!
+}
+
+type Product {
+  _id: ID!
+  title: String!
+  media: String!
+  price: Float!
+  promotionalPrice: Float!
+  availableQuantity: Float!
+  merchant: Merchant!
+  section: Section!
+  resolveReference: Product!
+}
+
+type Query {
+  products: [Product!]!
+  product(id: String!): Product!
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+  removeProduct(id: String!): Product!
+}
+
+input CreateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  _id: Int!
+}

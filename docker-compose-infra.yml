@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  mongo:
+    container_name: marketplace-mongo
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: topsecret
+    ports:
+      - 27017:27017
+    volumes:
+      - ./docker/mongodb:/data/db
+
+  redis:
+    container_name: marketplace-redis
+    image: 'redis:alpine'
+    ports:
+      - 6379:6379
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: marketplace-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_net
+networks:
+  rabbitmq_net:
+    driver: bridge
