@@ -31,10 +31,11 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/graphql": "^12.1.0",
     "@nestjs/microservices": "^10.3.2",
+    "@nestjs/mongoose": "^10.0.4",
     "@nestjs/platform-express": "^10.0.0",
     "graphql": "^16.8.1",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.1.1",
+    "mongoose": "^8.1.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
@@ -78,7 +79,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1"
+    }
   }
 }

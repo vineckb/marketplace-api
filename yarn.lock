@@ -1083,7 +1083,7 @@
     tslib "2.6.2"
     uid "2.0.2"
 
-"@nestjs/core@^10.0.0", "@nestjs/core@^9.3.8 || ^10.0.0":
+"@nestjs/core@^10.0.0", "@nestjs/core@^8.0.0 || ^9.0.0 || ^10.0.0", "@nestjs/core@^9.3.8 || ^10.0.0":
   version "10.3.2"
   resolved "https://registry.npmjs.org/@nestjs/core/-/core-10.3.2.tgz"
   integrity sha512-JW3bQvDFY1gB+xXR6E5DzCdKftRszyWtd0YyDkdlKh1+44e2IGybFhSa5HcQBOiRqdVgPqAM5Vqc81rmhgeBnQ==
@@ -1127,6 +1127,11 @@
   dependencies:
     iterare "1.2.1"
     tslib "2.6.2"
+
+"@nestjs/mongoose@^10.0.4":
+  version "10.0.4"
+  resolved "https://registry.npmjs.org/@nestjs/mongoose/-/mongoose-10.0.4.tgz"
+  integrity sha512-OXcguhrv+ahXmpPD3FJgnCLU3eUSBcbE7OwClJL+3inpPAyvMbhLrYvk3Zi7/34aMCzBOILdCBh95AQ7ghd1sg==
 
 "@nestjs/platform-express@^10.0.0":
   version "10.3.2"
@@ -4760,10 +4765,10 @@ mongodb@^6.3.0, mongodb@6.3.0:
     bson "^6.2.0"
     mongodb-connection-string-url "^3.0.0"
 
-mongoose@^8.1.1:
-  version "8.1.1"
-  resolved "https://registry.npmjs.org/mongoose/-/mongoose-8.1.1.tgz"
-  integrity sha512-DbLb0NsiEXmaqLOpEz+AtAsgwhRw6f25gwa1dF5R7jj6lS1D8X6uTdhBSC8GDVtOwe5Tfw2EL7nTn6hiJT3Bgg==
+"mongoose@^6.0.2 || ^7.0.0 || ^8.0.0", mongoose@^8.1.2:
+  version "8.1.2"
+  resolved "https://registry.npmjs.org/mongoose/-/mongoose-8.1.2.tgz"
+  integrity sha512-5KMq7k6KmFCIB8/YMKMFsWdsdNkBwuARDRHDRpp5GKC78eT0LwHIaMEKo6gDUg3zBuMoy9OdcM/6f4dkW06C/A==
   dependencies:
     bson "^6.2.0"
     kareem "2.5.1"
@@ -5373,7 +5378,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@^7.1.0, rxjs@^7.5.5, rxjs@^7.8.1, rxjs@7.8.1:
+rxjs@^7.0.0, rxjs@^7.1.0, rxjs@^7.5.5, rxjs@^7.8.1, rxjs@7.8.1:
   version "7.8.1"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz"
   integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==

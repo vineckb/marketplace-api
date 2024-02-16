@@ -2,36 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { products } from '../data';
-import { faker } from '@faker-js/faker';
+import { ProductRepository } from './repositories/product.repository';
 
 @Injectable()
 export class ProductsService {
-  async create(createProductInput: CreateProductInput) {
-    const createdProduct = {
-      ...createProductInput,
-      _id: faker.database.mongodbObjectId(),
-    };
-    products.push(createdProduct);
+  constructor(private readonly productRepository: ProductRepository) {}
+
+  async create(input: CreateProductInput) {
+    const createdProduct = this.productRepository.create(input);
     return createdProduct;
   }
 
   async findAll() {
-    return products;
+    return this.productRepository.findAll();
   }
 
-  async findOne(_id: string) {
-    const product = products.find((product) => product._id === _id);
-    if (!product) {
-      throw new Error(`Product #${_id} not found`);
-    }
-    return product;
+  async findOne(id: string) {
+    return this.productRepository.findById(id);
   }
 
-  async update(_id: string, updateProductInput: UpdateProductInput) {
-    const index = products.findIndex((product) => product._id === _id);
-    const updatedProduct = { ...products[index], ...updateProductInput, _id };
-    products[index] = updatedProduct;
-    return updatedProduct;
+  async update(id: string, input: UpdateProductInput) {
+    return this.productRepository.updateOne({ _id: id }, input);
   }
 
   async remove(_id: string) {

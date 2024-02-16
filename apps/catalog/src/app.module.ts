@@ -5,6 +5,7 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { ProductModule } from './products/products.module';
+import mongoose from 'mongoose';
 
 @Module({
   imports: [
@@ -16,5 +17,14 @@ import { ProductModule } from './products/products.module';
     ProductModule,
   ],
   controllers: [],
+  providers: [
+    {
+      provide: 'CATALOG_CONNECTION',
+      useFactory: (): Promise<typeof mongoose> =>
+        mongoose.connect(
+          'mongodb://root:topsecret@localhost:27017/marketplace-catalog',
+        ),
+    },
+  ],
 })
 export class AppModule {}
