@@ -2,31 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type MerchantEntity {
-  _id: ID!
-  name: String!
-  media: String!
-  address: String!
-  lat: Float!
-  lng: Float!
-}
-
-type SectionEntity {
-  _id: String!
-  name: String!
-  media: String!
-}
-
 type ProductEntity {
-  _id: ID!
+  id: ID!
   title: String!
   media: String!
   price: Float!
-  promotionalPrice: Float!
+  promotionalPrice: Float
   availableQuantity: Float!
-  merchant: MerchantEntity!
-  section: SectionEntity!
-  resolveReference: ProductEntity!
+}
+
+type CreatedModel {
+  id: String!
+  created: Boolean!
 }
 
 type Query {
@@ -35,7 +22,7 @@ type Query {
 }
 
 type Mutation {
-  createProduct(data: CreateProductInput!): ProductEntity!
+  createProduct(data: CreateProductInput!): CreatedModel!
   updateProduct(data: UpdateProductInput!): ProductEntity!
   removeProduct(id: String!): ProductEntity!
 }
@@ -44,14 +31,14 @@ input CreateProductInput {
   title: String!
   media: String!
   price: Float!
-  promotionalPrice: Float!
+  promotionalPrice: Float
   availableQuantity: Float!
-  merchant: MerchantInput!
-  section: SectionInput!
+  merchant: MerchantInput
+  section: SectionInput
 }
 
 input MerchantInput {
-  _id: String!
+  id: String!
   name: String!
   media: String!
   address: String!
@@ -60,7 +47,7 @@ input MerchantInput {
 }
 
 input SectionInput {
-  _id: String!
+  id: String!
   name: String!
   media: String!
 }
@@ -73,5 +60,5 @@ input UpdateProductInput {
   availableQuantity: Float
   merchant: MerchantInput
   section: SectionInput
-  _id: Int!
+  id: Int!
 }

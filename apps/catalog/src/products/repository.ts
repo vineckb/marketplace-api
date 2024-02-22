@@ -1,14 +1,14 @@
 import { DatabaseRepository } from '@app/database/database.repository';
 import { Injectable } from '@nestjs/common';
-import { ProductDocument } from '../schemas/product.schema';
+import { ProductDocument } from './schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Product } from 'apps/cart/src/entities/product.entity';
 import { Model } from 'mongoose';
+import { ProductEntity } from './entity';
 
 @Injectable()
 export class ProductRepository extends DatabaseRepository<ProductDocument> {
   constructor(
-    @InjectModel(Product.name) protected model: Model<ProductDocument>,
+    @InjectModel(ProductEntity.name) protected model: Model<ProductDocument>,
   ) {
     super();
   }

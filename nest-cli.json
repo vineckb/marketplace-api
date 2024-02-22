@@ -5,7 +5,7 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/gateway/tsconfig.app.json"
+    "tsConfigPath": "apps/gateway/tsconfig.json"
   },
   "monorepo": true,
   "root": "apps/gateway",
@@ -16,7 +16,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/catalog/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/catalog/tsconfig.app.json"
+        "tsConfigPath": "apps/catalog/tsconfig.json"
       }
     },
     "gateway": {
@@ -25,7 +25,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+        "tsConfigPath": "apps/gateway/tsconfig.json"
       }
     },
     "cart": {
@@ -34,7 +34,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/cart/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/cart/tsconfig.app.json"
+        "tsConfigPath": "apps/cart/tsconfig.json"
       }
     },
     "database": {

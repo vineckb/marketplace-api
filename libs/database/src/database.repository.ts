@@ -3,7 +3,6 @@ import {
   Document,
   FilterQuery,
   Model,
-  SaveOptions,
   UpdateQuery,
   UpdateWithAggregationPipeline,
 } from 'mongoose';
@@ -15,14 +14,13 @@ export abstract class DatabaseRepository<
 > extends IRepository<T> {
   protected model: Model<T>;
 
-  async create(
-    document: object,
-    saveOptions?: SaveOptions,
-  ): Promise<CreatedModel> {
-    const createdEntity = new this.model(document);
-    const savedResult = await createdEntity.save(saveOptions);
+  async create(document: object): Promise<CreatedModel> {
+    const createdDocument = await this.model.collection.insertOne(document);
 
-    return { id: savedResult.id, created: !!savedResult.id };
+    return {
+      id: createdDocument.insertedId.toString(),
+      created: !!createdDocument.insertedId,
+    };
   }
 
   async find(filter: FilterQuery<T>, options?: QueryOptions): Promise<T[]> {

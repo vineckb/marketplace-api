@@ -2,19 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { products } from '../data';
-import { ProductRepository } from './repositories/product.repository';
+import { ProductRepository } from './repository';
 
 @Injectable()
 export class ProductsService {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async create(input: CreateProductInput) {
-    const createdProduct = this.productRepository.create(input);
+    const createdProduct = await this.productRepository.create(input);
     return createdProduct;
   }
 
   async findAll() {
-    return this.productRepository.findAll();
+    const allProducts = await this.productRepository.findAll();
+    return allProducts;
   }
 
   async findOne(id: string) {
@@ -22,11 +23,11 @@ export class ProductsService {
   }
 
   async update(id: string, input: UpdateProductInput) {
-    return this.productRepository.updateOne({ _id: id }, input);
+    return this.productRepository.updateOne({ id: id }, input);
   }
 
-  async remove(_id: string) {
-    const index = products.findIndex((product) => product._id === _id);
+  async remove(id: string) {
+    const index = products.findIndex((product) => product.id === id);
     products.splice(index, 1);
   }
 }

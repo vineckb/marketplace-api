@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProductsService } from './products.service';
-import { ProductsResolver } from './products.resolver';
-import { CreateProductInput } from './dto/create-product.input';
-import { UpdateProductInput } from './dto/update-product.input';
+import { ProductsService } from './service';
+import { CreateProductInput } from '../dto/create-product.input';
+import { UpdateProductInput } from '../dto/update-product.input';
 import { products } from '../data';
+import { ProductsResolver } from './products';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -31,7 +31,7 @@ describe('ProductsService', () => {
         promotionalPrice: 9,
         availableQuantity: 100,
         merchant: {
-          _id: '1',
+          id: '1',
           name: 'Merchant',
           media: 'test-media.jpg',
           lat: 0,
@@ -39,14 +39,14 @@ describe('ProductsService', () => {
           address: 'test-address',
         },
         section: {
-          _id: '1',
+          id: '1',
           name: 'Section',
           media: 'test-media.jpg',
         },
       };
 
       jest.spyOn(service, 'create');
-      const { _id, ...createdProduct } =
+      const { id, ...createdProduct } =
         await resolver.createProduct(createProductInput);
 
       expect(service.create).toHaveBeenCalledWith(createProductInput);
@@ -64,8 +64,8 @@ describe('ProductsService', () => {
   describe('findOne', () => {
     it('should call service.findOne with the correct argument and return the result', async () => {
       const product = products[0];
-      const result = await service.findOne(product._id);
-      expect(result._id).toEqual(product._id);
+      const result = await service.findOne(product.id);
+      expect(result.id).toEqual(product.id);
       expect(Object.keys(result).includes('title')).toEqual(true);
       expect(Object.keys(result).includes('barcode')).toEqual(true);
       expect(Object.keys(result).includes('section')).toEqual(true);
@@ -78,7 +78,7 @@ describe('ProductsService', () => {
   describe('updateProduct', () => {
     it('should call service.update with the correct arguments and return the result', async () => {
       const updateProductInput: UpdateProductInput = {
-        _id: '1',
+        id: '1',
         title: 'Updated Product',
         media: 'updated-media.jpg',
         price: 20,
@@ -86,7 +86,7 @@ describe('ProductsService', () => {
         availableQuantity: 50,
 
         merchant: {
-          _id: '1',
+          id: '1',
           name: 'Merchant',
           media: 'test-media.jpg',
           lat: 0,
@@ -94,14 +94,14 @@ describe('ProductsService', () => {
           address: 'test-address',
         },
         section: {
-          _id: '1',
+          id: '1',
           name: 'Section',
           media: 'test-media.jpg',
         },
       };
 
       const result = await service.update(
-        updateProductInput._id,
+        updateProductInput.id,
         updateProductInput,
       );
 
@@ -112,7 +112,7 @@ describe('ProductsService', () => {
   describe('removeProduct', () => {
     it('should call service.remove with the correct argument', async () => {
       const beforeLength = products.length;
-      await service.remove(products[0]._id);
+      await service.remove(products[0].id);
 
       expect(products.length).toEqual(beforeLength - 1);
     });
@@ -125,10 +125,10 @@ describe('ProductsService', () => {
 
       const result = await resolver.resolveReference({
         __typename: 'Product',
-        id: product._id,
+        id: product.id,
       });
 
-      expect(service.findOne).toHaveBeenCalledWith(product._id);
+      expect(service.findOne).toHaveBeenCalledWith(product.id);
       expect(result).toEqual(product);
     });
   });

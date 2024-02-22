@@ -1,7 +1,13 @@
-export type CreatedModel = {
+import { Field, ObjectType } from '@nestjs/graphql';
+
+@ObjectType()
+export class CreatedModel {
+  @Field()
   id: string;
+
+  @Field()
   created: boolean;
-};
+}
 
 export type UpdatedModel = {
   matchedCount: number;

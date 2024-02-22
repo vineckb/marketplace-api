@@ -1,10 +1,24 @@
 version: '3.5'
 
 services:
+  mongo-express:
+    image: mongo-express
+    container_name: mexpress
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=topsecret
+      - ME_CONFIG_MONGODB_URL=mongodb://root:topsecret@mongo:27017/?authSource=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=mexpress
+      - ME_CONFIG_BASICAUTH_PASSWORD=mexpress
+    links:
+      - mongo
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
   mongo:
     container_name: marketplace-mongo
     image: mongo
-    restart: always
+    restart: on-failure
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: topsecret
@@ -12,6 +26,7 @@ services:
       - 27017:27017
     volumes:
       - ./docker/mongodb:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 #   redis:
 #     container_name: marketplace-redis
 #     image: 'redis:alpine'

@@ -99,4 +99,30 @@ export class Cart {
       0,
     );
   }
+
+  removeProduct(productId: string) {
+    this.merchants.forEach((merchant, merchantIndex) => {
+      const productIndex = merchant.products.findIndex(
+        (product) => product._id === productId,
+      );
+
+      if (productIndex >= 0) {
+        this.merchants[merchantIndex].products.splice(productIndex, 1);
+      }
+    });
+
+    this.calculate();
+  }
+
+  @Field(() => Number)
+  @Prop({ required: true })
+  createdAt: number;
+
+  @Field(() => Number)
+  @Prop({ required: true })
+  updatedAt: number;
+
+  @Field(() => Number)
+  @Prop({ required: true })
+  version: number;
 }

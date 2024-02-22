@@ -1,10 +1,10 @@
 import { ObjectType, Field, Directive } from '@nestjs/graphql';
 
 @ObjectType()
-@Directive('@key(fields: "_id")')
+@Directive('@key(fields: "id")')
 export class SectionEntity {
   @Field()
-  _id: string;
+  id: string;
 
   @Field()
   name: string;

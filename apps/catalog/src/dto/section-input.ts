@@ -1,22 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class MerchantInput {
+export class SectionInput {
   @Field()
-  _id: string;
+  id: string;
 
   @Field()
   name: string;
 
   @Field()
   media: string;
-
-  @Field()
-  address: string;
-
-  @Field()
-  lat: number;
-
-  @Field()
-  lng: number;
 }

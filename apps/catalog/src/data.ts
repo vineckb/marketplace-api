@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { ProductEntity } from './products/entities/product.entity';
+import { ProductEntity } from './products/entity';
 
 export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
   const price = +faker.commerce.price();
@@ -18,7 +18,7 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
   });
 
   return {
-    _id: faker.database.mongodbObjectId(),
+    id: faker.database.mongodbObjectId(),
     title: productTitle,
     media: productMedia,
     barcode: faker.commerce.isbn(),
@@ -26,7 +26,7 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
     promotionalPrice,
     availableQuantity: faker.number.int({ min: 0, max: 999 }),
     merchant: {
-      _id: faker.database.mongodbObjectId(),
+      id: faker.database.mongodbObjectId(),
       name: faker.commerce.department(),
       media: faker.image.avatar(),
       address: faker.location.streetAddress({ useFullAddress: true }),
@@ -36,7 +36,7 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
       delivery: faker.datatype.boolean({ probability: 0.9 }),
     },
     section: {
-      _id: faker.database.mongodbObjectId(),
+      id: faker.database.mongodbObjectId(),
       name: sectionName,
       media: sectionMedia,
     },

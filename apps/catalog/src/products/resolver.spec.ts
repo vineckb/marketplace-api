@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProductsResolver } from './products.resolver';
-import { ProductsService } from './products.service';
+import { ProductsResolver } from './resolver';
 import { CreateProductInput } from './dto/create-product.input';
-import { ProductEntity } from './entities/product.entity';
 import { products } from '../data';
 import { UpdateProductInput } from './dto/update-product.input';
+import { ProductsService } from './service';
+import { ProductEntity } from './entity';
 
 describe('ProductsResolver', () => {
   let resolver: ProductsResolver;
@@ -44,7 +44,7 @@ describe('ProductsResolver', () => {
         promotionalPrice: 9,
         availableQuantity: 100,
         merchant: {
-          _id: '1',
+          id: '1',
           name: 'Merchant',
           media: 'test-media.jpg',
           lat: 0,
@@ -52,7 +52,7 @@ describe('ProductsResolver', () => {
           address: 'test-address',
         },
         section: {
-          _id: '1',
+          id: '1',
           name: 'Section',
           media: 'test-media.jpg',
         },
@@ -60,7 +60,7 @@ describe('ProductsResolver', () => {
 
       const createdProduct: ProductEntity = {
         ...createProductInput,
-        _id: '1',
+        id: '1',
       };
 
       jest
@@ -90,9 +90,9 @@ describe('ProductsResolver', () => {
       const product = products[0];
       jest.spyOn(productService, 'findOne').mockResolvedValueOnce(product);
 
-      const result = await resolver.getProduct(product._id);
+      const result = await resolver.getProduct(product.id);
 
-      expect(productService.findOne).toHaveBeenCalledWith(product._id);
+      expect(productService.findOne).toHaveBeenCalledWith(product.id);
       expect(result).toEqual(product);
     });
   });
@@ -100,14 +100,14 @@ describe('ProductsResolver', () => {
   describe('updateProduct', () => {
     it('should call productService.update with the correct arguments and return the result', async () => {
       const updateProductInput: UpdateProductInput = {
-        _id: '1',
+        id: '1',
         title: 'Test Product',
         media: 'test-media.jpg',
         price: 10,
         promotionalPrice: 9,
         availableQuantity: 100,
         merchant: {
-          _id: '1',
+          id: '1',
           name: 'Merchant',
           media: 'test-media.jpg',
           lat: 0,
@@ -115,7 +115,7 @@ describe('ProductsResolver', () => {
           address: 'test-address',
         },
         section: {
-          _id: '1',
+          id: '1',
           name: 'Section',
           media: 'test-media.jpg',
         },
@@ -130,7 +130,7 @@ describe('ProductsResolver', () => {
       const result = await resolver.updateProduct(updateProductInput);
 
       expect(productService.update).toHaveBeenCalledWith(
-        updateProductInput._id,
+        updateProductInput.id,
         updateProductInput,
       );
       expect(result).toEqual(updatedProduct);

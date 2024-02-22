@@ -24,14 +24,14 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
   describe(gql, () => {
     describe('products', () => {
       it('should get the products array', () => {
-        const expectedPayload = products.map(({ _id, title }) => ({
-          _id,
+        const expectedPayload = products.map(({ id, title }) => ({
+          id,
           title,
         }));
 
         return request(app.getHttpServer())
           .post(gql)
-          .send({ query: '{getProducts {_id title }}' })
+          .send({ query: '{getProducts {id title }}' })
           .expect(200)
           .expect((res) => {
             expect(res.body.data.getProducts).toEqual(expectedPayload);
@@ -41,13 +41,13 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
       describe('one product', () => {
         it('should get a single product', () => {
           const product = {
-            _id: products[0]._id,
+            id: products[0].id,
             title: products[0].title,
           };
           return request(app.getHttpServer())
             .post(gql)
             .send({
-              query: `{getProduct(id:"${product._id}"){_id title}}`,
+              query: `{getProduct(id:"${product.id}"){id title}}`,
             })
             .expect(200)
             .expect((res) => {
@@ -59,7 +59,7 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
             request(app.getHttpServer())
               .post(gql)
               .send({
-                query: `{getProduct(id:"not-found-id"){_id title}}`,
+                query: `{getProduct(id:"not-found-id"){id title}}`,
               })
               .expect(200)
               // break
@@ -84,7 +84,7 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
                   promotionalPrice: 18,
                   availableQuantity: 50,
                   merchant: {
-                    _id: "1",
+                    id: "1",
                     name: "Merchant",
                     media: "test-media.jpg",
                     lat: 0,
@@ -92,21 +92,21 @@ describe('GraphQL AppResolver (e2e) {Supertest}', () => {
                     address: "test-address",
                   },
                   section: {
-                    _id: "1",
+                    id: "1",
                     name: "Section",
                     media: "test-media.jpg",
                   }
-                }) { _id }
+                }) { id }
               }`,
           })
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.createProduct?._id).toBeDefined();
+            expect(res.body.data.createProduct?.id).toBeDefined();
           })
           .then(() =>
             request(app.getHttpServer())
               .post(gql)
-              .send({ query: '{getProducts {_id title}}' })
+              .send({ query: '{getProducts {id title}}' })
               .expect(200)
               .expect((res) => {
                 expect(
