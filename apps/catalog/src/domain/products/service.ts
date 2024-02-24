@@ -27,7 +27,7 @@ export class ProductsService {
   }
 
   async remove(id: string) {
-    const index = products.findIndex((product) => product.id === id);
+    const index = products.findIndex((product) => product._id === id);
     products.splice(index, 1);
   }
 }

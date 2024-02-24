@@ -12,15 +12,8 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
     category: productTitle,
   });
 
-  const sectionName = faker.commerce.productAdjective();
-  const sectionMedia = faker.image.urlLoremFlickr({
-    category: sectionName,
-    width: 350,
-    height: 150,
-  });
-
   return {
-    id: faker.database.mongodbObjectId(),
+    _id: faker.database.mongodbObjectId(),
     title: productTitle,
     media: productMedia,
     barcode: faker.commerce.isbn(),
@@ -35,7 +28,7 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
 export const merchants: MerchantEntity[] = Array.from({ length: 10 }).map(
   () => {
     return {
-      id: faker.database.mongodbObjectId(),
+      _id: faker.database.mongodbObjectId(),
       name: faker.commerce.department(),
       media: faker.image.avatar(),
       address: faker.location.streetAddress({ useFullAddress: true }),
@@ -56,7 +49,7 @@ export const sections: SectionEntity[] = Array.from({ length: 10 }).map(() => {
   });
 
   return {
-    id: faker.database.mongodbObjectId(),
+    _id: faker.database.mongodbObjectId(),
     name: sectionName,
     media: sectionMedia,
   };

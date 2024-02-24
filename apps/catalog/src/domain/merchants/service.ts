@@ -27,7 +27,7 @@ export class MerchantsService {
   }
 
   async remove(id: string) {
-    const index = merchants.findIndex((merchant) => merchant.id === id);
+    const index = merchants.findIndex((merchant) => merchant._id === id);
     merchants.splice(index, 1);
   }
 }

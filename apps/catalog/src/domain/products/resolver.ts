@@ -1,10 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ResolveReference,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ProductsService } from './service';
 import { ProductEntity } from './entity';
 import { CreateProductInput } from './dto/create-product.input';
@@ -39,16 +33,11 @@ export class ProductsResolver {
 
   @Mutation(() => ProductEntity)
   updateProduct(@Args('data') data: UpdateProductInput) {
-    return this.productService.update(data.id, data);
+    return this.productService.update(data._id, data);
   }
 
   @Mutation(() => ProductEntity)
   removeProduct(@Args('id', { type: () => String }) id: string) {
     return this.productService.remove(id);
-  }
-
-  @ResolveReference()
-  resolveReference(reference: { __typename: string; id: string }) {
-    return this.productService.findOne(reference.id);
   }
 }

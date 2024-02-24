@@ -3,8 +3,8 @@
 # ------------------------------------------------------
 
 type ProductEntity {
-  id: ID!
-  title: String
+  _id: ID!
+  title: String!
   media: String!
   price: Float!
   promotionalPrice: Float
@@ -19,7 +19,7 @@ type CreatedModel {
 }
 
 type MerchantEntity {
-  id: ID!
+  _id: ID
   name: String!
   media: String!
   address: String!
@@ -57,7 +57,7 @@ input UpdateMerchantInput {
   address: String = ""
   lat: Float = 0
   lng: Float = 0
-  id: Int!
+  _id: Int!
 }
 
 input CreateProductInput {
@@ -78,5 +78,5 @@ input UpdateProductInput {
   availableQuantity: Float
   merchantId: String
   sectionId: String
-  id: Int!
+  _id: Int!
 }

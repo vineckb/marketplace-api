@@ -1,24 +1,30 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Schema } from '@nestjs/mongoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 
 @Schema({ collection: 'merchants' })
 @ObjectType()
 export class MerchantEntity {
-  @Field(() => ID!)
-  id!: string;
+  @Field(() => ID, { nullable: true })
+  @Prop({ nullable: true })
+  _id: string;
 
   @Field()
-  name!: string;
+  @Prop()
+  name: string;
 
   @Field()
-  media!: string;
+  @Prop()
+  media: string;
 
   @Field()
-  address!: string;
+  @Prop()
+  address: string;
 
   @Field()
-  lat!: number;
+  @Prop()
+  lat: number;
 
   @Field()
-  lng!: number;
+  @Prop()
+  lng: number;
 }

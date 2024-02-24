@@ -27,7 +27,7 @@ export class SectionsService {
   }
 
   async remove(id: string) {
-    const index = sections.findIndex((section) => section.id === id);
+    const index = sections.findIndex((section) => section._id === id);
     sections.splice(index, 1);
   }
 }

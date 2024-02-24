@@ -30,7 +30,7 @@ export class MerchantsResolver {
 
   @Mutation(() => MerchantEntity)
   updateMerchant(@Args('data') data: UpdateMerchantInput) {
-    return this.merchantService.update(data.id, data);
+    return this.merchantService.update(data._id, data);
   }
 
   @Mutation(() => MerchantEntity)
