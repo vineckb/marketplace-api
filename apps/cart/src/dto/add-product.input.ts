@@ -2,18 +2,18 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class MerchantInput {
-  _id: string;
+  id: string;
   name: string;
-  mediaUrl: string;
+  media: string;
   minOrder: number;
 }
 
 @InputType()
 export class AddProductInput {
-  _id: string;
-  merchant: MerchantInput;
+  id: string;
+  merchantId: string;
   title: string;
-  mediaUrl: string;
+  media: string;
   sectionName: string;
   sectionId: number;
   price: number;

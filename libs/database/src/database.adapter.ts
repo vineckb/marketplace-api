@@ -1,5 +1,6 @@
 import {
   FilterQuery,
+  Model,
   SaveOptions,
   UpdateQuery,
   UpdateWithAggregationPipeline,
@@ -15,7 +16,7 @@ export abstract class IRepository<T> {
 
   abstract findById(id: string | number): Promise<T>;
 
-  abstract findAll(): Promise<T[]>;
+  abstract findAll(): Promise<Model<T>[]>;
 
   abstract find<TQuery = FilterQuery<T>, TOptions = QueryOptions<T>>(
     filter: TQuery,

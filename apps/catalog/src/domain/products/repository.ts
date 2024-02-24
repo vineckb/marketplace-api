@@ -12,10 +12,4 @@ export class ProductRepository extends DatabaseRepository<ProductDocument> {
   ) {
     super();
   }
-
-  async findActive(customerId: string) {
-    return this.model
-      .findOne({ status: 'open', 'customer.id': customerId })
-      .exec();
-  }
 }

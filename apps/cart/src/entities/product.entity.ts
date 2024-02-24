@@ -5,7 +5,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 @Schema()
 export class Product {
   @Field(() => String)
-  _id: string;
+  id: string;
 
   @Field(() => String)
   @Prop()
@@ -13,7 +13,7 @@ export class Product {
 
   @Field(() => String)
   @Prop()
-  mediaUrl: string;
+  media: string;
 
   @Field(() => String)
   @Prop()

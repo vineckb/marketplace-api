@@ -1,6 +1,4 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { MerchantInput } from '../../dto/merchant-input';
-import { SectionInput } from '../../dto/section-input';
 
 @InputType()
 export class CreateProductInput {
@@ -19,9 +17,9 @@ export class CreateProductInput {
   @Field()
   availableQuantity: number;
 
-  @Field(() => MerchantInput, { nullable: true })
-  merchant?: MerchantInput;
+  @Field()
+  merchantId?: string;
 
-  @Field(() => SectionInput, { nullable: true })
-  section?: SectionInput;
+  @Field()
+  sectionId?: string;
 }

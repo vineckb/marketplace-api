@@ -1,18 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CartRepository } from './repositories/cart.repository';
 import { Customer } from './entities/customer.entity';
 import { Cart } from './entities/cart.entity';
-import { ProductsService } from 'apps/catalog/src/products/products.service';
+import { ClientProxy } from '@nestjs/microservices';
+import { MerchantEntity } from './entities/merchant.entity';
+import { AddProductInput } from './dto/add-product.input';
 
 @Injectable()
-export class AppService {
+export class CartService {
   constructor(
     private readonly cartRepository: CartRepository,
-    private readonly productService: ProductsService,
+    @Inject('CatalogService') private readonly catalogService: ClientProxy,
   ) {}
 
   async getOrCreate(customer: Customer): Promise<Cart> {
-    const activeCart = await this.cartRepository.findActive(customer._id);
+    const activeCart = await this.cartRepository.findActive(customer.id);
 
     if (activeCart) {
       return activeCart;
@@ -26,12 +28,50 @@ export class AppService {
     return newCart;
   }
 
-  async addProduct(cartId: string, productId: string): Promise<void> {
+  async addMerchant(cartId: string, merchant: MerchantEntity): Promise<void> {
     const cart = await this.cartRepository.findOne(cartId);
-    const product = await this.productService.findOne(productId);
 
-    cart.addProduct(product);
+    if (!cart) {
+      throw new Error('Cart not found');
+    }
 
-    cart.save();
+    const merchantExists = cart.merchants.find((m) => m.id === merchant.id);
+
+    if (merchantExists) {
+      throw new Error('Merchant already exists in cart');
+    }
+
+    cart.merchants.push(merchant);
+
+    await this.cartRepository.update(cartId, cart);
+  }
+
+  // async findProduct(productId: string): Promise<ProductEntity> {
+  //   return new Promise((resolve) => {
+  //     this.catalogService
+  //       .send<ProductEntity>({ cmd: 'findProduct' }, productId)
+  //       .subscribe((product) => {
+  //         resolve(product);
+  //       });
+  //   });
+  // }
+
+  async addProduct(
+    cartId: string,
+    { merchantId, ...product }: AddProductInput,
+  ): Promise<void> {
+    const catEntity = await this.cartRepository.findOne(cartId);
+
+    // @ts-ignore
+    const merchant = (await this.merchantService.getMerchant(
+      merchantId,
+    )) as MerchantEntity;
+
+    catEntity.addProduct({
+      ...product,
+      merchant,
+    });
+
+    catEntity.save();
   }
 }

@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { ProductEntity } from './products/entity';
+import { ProductEntity } from './domain/products/entity';
+import { MerchantEntity } from './domain/merchants/entity';
+import { SectionEntity } from './domain/sections/entity';
 
 export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
   const price = +faker.commerce.price();
@@ -25,7 +27,14 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
     price,
     promotionalPrice,
     availableQuantity: faker.number.int({ min: 0, max: 999 }),
-    merchant: {
+    merchantId: faker.database.mongodbObjectId(),
+    sectionId: faker.database.mongodbObjectId(),
+  };
+});
+
+export const merchants: MerchantEntity[] = Array.from({ length: 10 }).map(
+  () => {
+    return {
       id: faker.database.mongodbObjectId(),
       name: faker.commerce.department(),
       media: faker.image.avatar(),
@@ -34,11 +43,21 @@ export const products: ProductEntity[] = Array.from({ length: 10 }).map(() => {
       lng: faker.location.longitude(),
       withdrawal: faker.datatype.boolean({ probability: 0.2 }),
       delivery: faker.datatype.boolean({ probability: 0.9 }),
-    },
-    section: {
-      id: faker.database.mongodbObjectId(),
-      name: sectionName,
-      media: sectionMedia,
-    },
+    };
+  },
+);
+
+export const sections: SectionEntity[] = Array.from({ length: 10 }).map(() => {
+  const sectionName = faker.commerce.productAdjective();
+  const sectionMedia = faker.image.urlLoremFlickr({
+    category: sectionName,
+    width: 350,
+    height: 150,
+  });
+
+  return {
+    id: faker.database.mongodbObjectId(),
+    name: sectionName,
+    media: sectionMedia,
   };
 });

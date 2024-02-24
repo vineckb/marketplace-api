@@ -28,14 +28,14 @@ export abstract class DatabaseRepository<
   }
 
   async findById(id: string | number): Promise<T> {
-    return await this.model.findById(id);
+    return this.model.findById(id);
   }
 
   async findOne(filter: FilterQuery<T>, options?: QueryOptions): Promise<T> {
     return await this.model.findOne(filter, undefined, options);
   }
 
-  async findAll(): Promise<T[]> {
+  async findAll(): Promise<Model<T>[]> {
     return await this.model.find();
   }
 

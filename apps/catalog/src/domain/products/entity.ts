@@ -7,8 +7,8 @@ export class ProductEntity {
   @Field(() => ID)
   id: string;
 
-  @Field()
-  title: string;
+  @Field({ nullable: true })
+  title!: string;
 
   @Field()
   media: string;
@@ -22,9 +22,9 @@ export class ProductEntity {
   @Field()
   availableQuantity: number;
 
-  // @Field(() => MerchantEntity)
-  // merchant: MerchantEntity;
+  @Field()
+  sectionId: string;
 
-  // @Field(() => SectionEntity)
-  // section: SectionEntity;
+  @Field()
+  merchantId: string;
 }

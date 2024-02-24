@@ -5,7 +5,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 @Schema()
 export class Customer {
   @Field(() => ID)
-  _id: string;
+  id: string;
 
   @Field(() => String)
   @Prop()

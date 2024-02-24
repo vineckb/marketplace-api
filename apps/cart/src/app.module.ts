@@ -6,13 +6,21 @@ import {
 } from '@nestjs/apollo';
 import { AppResolver } from './app.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DatabaseModule } from '@app/database';
-import { AppService } from './app.service';
-import { ProductsService } from 'apps/catalog/src/products/products.service';
 import mongoose from 'mongoose';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { DatabaseModule } from 'apps/catalog/src/infra/database/database.module';
+import { ProductsService } from 'apps/catalog/src/products/service';
+import { CartService } from './app.service';
 
 @Module({
   imports: [
+    ClientsModule.register([
+      {
+        name: 'CatalogService',
+        transport: Transport.TCP,
+        options: { port: 3001 },
+      },
+    ]),
     MongooseModule.forRoot('mongodb://localhost/nest'),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
@@ -24,7 +32,7 @@ import mongoose from 'mongoose';
 
   controllers: [],
   providers: [
-    AppService,
+    CartService,
     AppResolver,
     {
       provide: 'MONGO_CONNECTION',

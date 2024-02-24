@@ -4,9 +4,9 @@ import { Product } from './product.entity';
 
 @ObjectType()
 @Schema()
-export class Merchant {
+export class MerchantEntity {
   @Field(() => String)
-  _id: string;
+  id: string;
 
   @Field(() => String)
   @Prop()
@@ -14,7 +14,7 @@ export class Merchant {
 
   @Field(() => String)
   @Prop()
-  mediaUrl: string;
+  media: string;
 
   @Field(() => Number)
   @Prop()

@@ -4,11 +4,13 @@
 
 type ProductEntity {
   id: ID!
-  title: String!
+  title: String
   media: String!
   price: Float!
   promotionalPrice: Float
   availableQuantity: Float!
+  sectionId: String!
+  merchantId: String!
 }
 
 type CreatedModel {
@@ -16,15 +18,46 @@ type CreatedModel {
   created: Boolean!
 }
 
+type MerchantEntity {
+  id: ID!
+  name: String!
+  media: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
 type Query {
+  getMerchants: [MerchantEntity!]!
+  getMerchant(id: String!): MerchantEntity!
   getProducts: [ProductEntity!]!
   getProduct(id: String!): ProductEntity!
 }
 
 type Mutation {
+  createMerchant(data: CreateMerchantInput!): CreatedModel!
+  updateMerchant(data: UpdateMerchantInput!): MerchantEntity!
+  removeMerchant(id: String!): MerchantEntity!
   createProduct(data: CreateProductInput!): CreatedModel!
   updateProduct(data: UpdateProductInput!): ProductEntity!
   removeProduct(id: String!): ProductEntity!
+}
+
+input CreateMerchantInput {
+  name: String! = ""
+  media: String! = ""
+  address: String! = ""
+  lat: Float! = 0
+  lng: Float! = 0
+}
+
+input UpdateMerchantInput {
+  name: String = ""
+  media: String = ""
+  address: String = ""
+  lat: Float = 0
+  lng: Float = 0
+  id: Int!
 }
 
 input CreateProductInput {
@@ -33,23 +66,8 @@ input CreateProductInput {
   price: Float!
   promotionalPrice: Float
   availableQuantity: Float!
-  merchant: MerchantInput
-  section: SectionInput
-}
-
-input MerchantInput {
-  id: String!
-  name: String!
-  media: String!
-  address: String!
-  lat: Float!
-  lng: Float!
-}
-
-input SectionInput {
-  id: String!
-  name: String!
-  media: String!
+  merchantId: String!
+  sectionId: String!
 }
 
 input UpdateProductInput {
@@ -58,7 +76,7 @@ input UpdateProductInput {
   price: Float
   promotionalPrice: Float
   availableQuantity: Float
-  merchant: MerchantInput
-  section: SectionInput
+  merchantId: String
+  sectionId: String
   id: Int!
 }
