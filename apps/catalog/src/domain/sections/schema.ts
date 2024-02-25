@@ -1,6 +1,6 @@
 import { SchemaFactory } from '@nestjs/mongoose';
-import { SectionEntity } from './entity';
+import { Section } from './entity';
 import { HydratedDocument } from 'mongoose';
 
-export type SectionDocument = HydratedDocument<SectionEntity>;
-export const SectionSchema = SchemaFactory.createForClass(SectionEntity);
+export type SectionDocument = HydratedDocument<Section>;
+export const SectionSchema = SchemaFactory.createForClass(Section);

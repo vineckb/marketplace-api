@@ -3,9 +3,9 @@ import { ProductSchema } from './schema';
 
 export const productsProviders = [
   {
-    provide: 'ProductEntityModel',
+    provide: 'ProductModel',
     useFactory: (mongoose: Mongoose) =>
-      mongoose.model('ProductEntityModel', ProductSchema),
+      mongoose.model('ProductModel', ProductSchema),
     inject: ['DATABASE_CONNECTION'],
   },
 ];

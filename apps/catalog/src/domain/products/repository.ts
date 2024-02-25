@@ -3,12 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { ProductDocument } from './schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ProductEntity } from './entity';
+import { Product } from './entity';
 
 @Injectable()
 export class ProductRepository extends DatabaseRepository<ProductDocument> {
   constructor(
-    @InjectModel(ProductEntity.name) protected model: Model<ProductDocument>,
+    @InjectModel(Product.name) protected model: Model<ProductDocument>,
   ) {
     super();
   }

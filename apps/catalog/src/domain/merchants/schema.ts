@@ -1,6 +1,6 @@
 import { SchemaFactory } from '@nestjs/mongoose';
-import { MerchantEntity } from './entity';
+import { Merchant } from './entity';
 import { HydratedDocument } from 'mongoose';
 
-export type MerchantDocument = HydratedDocument<MerchantEntity>;
-export const MerchantSchema = SchemaFactory.createForClass(MerchantEntity);
+export type MerchantDocument = HydratedDocument<Merchant>;
+export const MerchantSchema = SchemaFactory.createForClass(Merchant);

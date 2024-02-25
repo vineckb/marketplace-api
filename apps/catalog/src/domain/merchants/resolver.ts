@@ -1,24 +1,24 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MerchantsService } from './service';
-import { MerchantEntity } from './entity';
+import { Merchant } from './entity';
 import { CreateMerchantInput } from './dto/create-merchant.input';
 import { UpdateMerchantInput } from './dto/update-merchant.input';
 import { CreatedModel, RemovedModel } from '@app/database/database.types';
 
-@Resolver(() => MerchantEntity)
+@Resolver(() => Merchant)
 export class MerchantsResolver {
   constructor(private readonly merchantService: MerchantsService) {}
 
-  @Query(() => [MerchantEntity])
+  @Query(() => [Merchant])
   getMerchants() {
     return this.merchantService.findAll();
   }
 
-  @Query(() => MerchantEntity)
+  @Query(() => Merchant)
   async getMerchant(
     @Args('id', { type: () => String })
     id: string,
-  ): Promise<MerchantEntity> {
+  ): Promise<Merchant> {
     const merchant = await this.merchantService.findOne(id);
     return merchant;
   }
@@ -28,7 +28,7 @@ export class MerchantsResolver {
     return this.merchantService.create(data);
   }
 
-  @Mutation(() => MerchantEntity)
+  @Mutation(() => Merchant)
   updateMerchant(@Args('data') data: UpdateMerchantInput) {
     return this.merchantService.update(data);
   }

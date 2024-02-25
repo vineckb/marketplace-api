@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SectionEntity } from './entity';
+import { Section } from './entity';
 import { SectionsService } from './service';
 import { SectionRepository } from './repository';
 import { sectionsProviders } from './providers';
@@ -12,7 +12,7 @@ import { SectionsResolver } from './resolver';
     ...sectionsProviders,
     SectionsService,
     SectionRepository,
-    SectionEntity,
+    Section,
     SectionsResolver,
   ],
 })

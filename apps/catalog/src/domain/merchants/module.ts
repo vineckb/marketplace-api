@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MerchantEntity } from './entity';
+import { Merchant } from './entity';
 import { MerchantsService } from './service';
 import { MerchantRepository } from './repository';
 import { merchantsProviders } from './providers';
@@ -13,7 +13,7 @@ import { DatabaseModule } from '../../infra/database/database.module';
     MerchantsResolver,
     MerchantsService,
     MerchantRepository,
-    MerchantEntity,
+    Merchant,
     ...merchantsProviders,
   ],
 })

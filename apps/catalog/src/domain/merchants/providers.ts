@@ -3,9 +3,9 @@ import { MerchantSchema } from './schema';
 
 export const merchantsProviders = [
   {
-    provide: 'MerchantEntityModel',
+    provide: 'MerchantModel',
     useFactory: (mongoose: Mongoose) =>
-      mongoose.model('MerchantEntityModel', MerchantSchema),
+      mongoose.model('MerchantModel', MerchantSchema),
     inject: ['DATABASE_CONNECTION'],
   },
 ];

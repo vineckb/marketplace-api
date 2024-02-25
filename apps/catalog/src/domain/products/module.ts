@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ProductEntity } from './entity';
+import { Product } from './entity';
 import { ProductsService } from './service';
 import { ProductRepository } from './repository';
 import { productsProviders } from './providers';
@@ -12,7 +12,7 @@ import { DatabaseModule } from '../../infra/database/database.module';
     ...productsProviders,
     ProductsService,
     ProductRepository,
-    ProductEntity,
+    Product,
     ProductsResolver,
   ],
 })

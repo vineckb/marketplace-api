@@ -3,9 +3,9 @@ import { SectionSchema } from './schema';
 
 export const sectionsProviders = [
   {
-    provide: 'SectionEntityModel',
+    provide: 'SectionModel',
     useFactory: (mongoose: Mongoose) =>
-      mongoose.model('SectionEntityModel', SectionSchema),
+      mongoose.model('SectionModel', SectionSchema),
     inject: ['DATABASE_CONNECTION'],
   },
 ];

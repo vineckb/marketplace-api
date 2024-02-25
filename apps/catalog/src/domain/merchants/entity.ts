@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 @Schema({ collection: 'merchants' })
 @ObjectType()
-export class MerchantEntity {
+export class Merchant {
   @Field(() => ID)
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: string;
