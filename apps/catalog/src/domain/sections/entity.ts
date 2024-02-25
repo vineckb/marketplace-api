@@ -1,18 +1,19 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 
 @Schema({ collection: 'sections' })
 @ObjectType()
 export class SectionEntity {
   @Field(() => ID)
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: string;
 
   @Field()
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
   @Field()
-  @Prop()
+  @Prop({ required: true })
   media: string;
 }

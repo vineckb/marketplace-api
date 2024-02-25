@@ -3,17 +3,17 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateMerchantInput {
   @Field()
-  name: string = '';
+  name: string;
 
   @Field()
-  media: string = '';
+  media: string;
 
   @Field()
-  address: string = '';
+  address: string;
 
   @Field()
-  lat: number = 0;
+  lat: number;
 
   @Field()
-  lng: number = 0;
+  lng: number;
 }

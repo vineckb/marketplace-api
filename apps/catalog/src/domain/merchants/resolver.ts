@@ -3,7 +3,7 @@ import { MerchantsService } from './service';
 import { MerchantEntity } from './entity';
 import { CreateMerchantInput } from './dto/create-merchant.input';
 import { UpdateMerchantInput } from './dto/update-merchant.input';
-import { CreatedModel } from '@app/database/database.types';
+import { CreatedModel, RemovedModel } from '@app/database/database.types';
 
 @Resolver(() => MerchantEntity)
 export class MerchantsResolver {
@@ -30,10 +30,10 @@ export class MerchantsResolver {
 
   @Mutation(() => MerchantEntity)
   updateMerchant(@Args('data') data: UpdateMerchantInput) {
-    return this.merchantService.update(data._id, data);
+    return this.merchantService.update(data);
   }
 
-  @Mutation(() => MerchantEntity)
+  @Mutation(() => RemovedModel)
   removeMerchant(@Args('id', { type: () => String }) id: string) {
     return this.merchantService.remove(id);
   }

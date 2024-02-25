@@ -3,21 +3,35 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class CreatedModel {
   @Field()
-  id: string;
+  _id: string;
 
   @Field()
   created: boolean;
 }
 
-export type UpdatedModel = {
+@ObjectType()
+export class UpdatedModel {
+  @Field()
   matchedCount: number;
-  modifiedCount: number;
-  acknowledged: boolean;
-  upsertedId: unknown | string;
-  upsertedCount: number;
-};
 
-export type RemovedModel = {
+  @Field()
+  modifiedCount: number;
+
+  @Field()
+  acknowledged: boolean;
+
+  @Field()
+  upsertedId: string;
+
+  @Field()
+  upsertedCount: number;
+}
+
+@ObjectType()
+export class RemovedModel {
+  @Field()
   deletedCount: number;
+
+  @Field()
   deleted: boolean;
-};
+}

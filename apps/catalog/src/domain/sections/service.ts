@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSectionInput } from './dto/create-section.input';
 import { UpdateSectionInput } from './dto/update-section.input';
-import { sections } from '../../data';
 import { SectionRepository } from './repository';
 
 @Injectable()
@@ -22,12 +21,11 @@ export class SectionsService {
     return this.sectionRepository.findById(id);
   }
 
-  async update(id: string, input: UpdateSectionInput) {
-    return this.sectionRepository.updateOne({ id: id }, input);
+  async update({ _id, ...input }: UpdateSectionInput) {
+    return this.sectionRepository.update(_id, input);
   }
 
-  async remove(id: string) {
-    const index = sections.findIndex((section) => section._id === id);
-    sections.splice(index, 1);
+  remove(id: string) {
+    return this.sectionRepository.remove(id);
   }
 }

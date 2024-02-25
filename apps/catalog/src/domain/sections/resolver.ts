@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { SectionsService } from './service';
 import { SectionEntity } from './entity';
-import { CreatedModel } from '@app/database/database.types';
+import { CreatedModel, RemovedModel } from '@app/database/database.types';
 import { CreateSectionInput } from './dto/create-section.input';
 import { UpdateSectionInput } from './dto/update-section.input';
 
@@ -29,10 +29,10 @@ export class SectionsResolver {
 
   @Mutation(() => SectionEntity)
   updateSection(@Args('data') data: UpdateSectionInput) {
-    return this.productService.update(data.id, data);
+    return this.productService.update(data);
   }
 
-  @Mutation(() => SectionEntity)
+  @Mutation(() => RemovedModel)
   removeSection(@Args('id', { type: () => String }) id: string) {
     return this.productService.remove(id);
   }

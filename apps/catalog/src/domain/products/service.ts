@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
-import { products } from '../../data';
 import { ProductRepository } from './repository';
 
 @Injectable()
@@ -22,12 +21,11 @@ export class ProductsService {
     return this.productRepository.findById(id);
   }
 
-  async update(id: string, input: UpdateProductInput) {
-    return this.productRepository.updateOne({ id: id }, input);
+  update({ _id, ...input }: UpdateProductInput) {
+    return this.productRepository.update(_id, input);
   }
 
-  async remove(id: string) {
-    const index = products.findIndex((product) => product._id === id);
-    products.splice(index, 1);
+  remove(id: string) {
+    return this.productRepository.remove(id);
   }
 }

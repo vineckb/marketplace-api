@@ -1,12 +1,6 @@
 import { QueryOptions } from '@nestjs/graphql';
-import {
-  Document,
-  FilterQuery,
-  Model,
-  UpdateQuery,
-  UpdateWithAggregationPipeline,
-} from 'mongoose';
-import { CreatedModel, RemovedModel, UpdatedModel } from './database.types';
+import { AnyKeys, Document, FilterQuery, Model } from 'mongoose';
+import { CreatedModel, RemovedModel } from './database.types';
 import { IRepository } from './database.adapter';
 
 export abstract class DatabaseRepository<
@@ -18,7 +12,7 @@ export abstract class DatabaseRepository<
     const createdDocument = await this.model.collection.insertOne(document);
 
     return {
-      id: createdDocument.insertedId.toString(),
+      _id: createdDocument.insertedId.toString(),
       created: !!createdDocument.insertedId,
     };
   }
@@ -39,24 +33,16 @@ export abstract class DatabaseRepository<
     return await this.model.find();
   }
 
-  async remove(filter: FilterQuery<T>): Promise<RemovedModel> {
-    const { deletedCount } = await this.model.deleteMany(filter);
+  async remove(id: string): Promise<RemovedModel> {
+    const { deletedCount } = await this.model.deleteOne({ _id: id });
+    console.log('deletedCount', deletedCount);
     return { deletedCount, deleted: !!deletedCount };
   }
 
-  async updateOne(
-    filter: FilterQuery<T>,
-    updated: UpdateWithAggregationPipeline | UpdateQuery<T>,
-    options?: QueryOptions,
-  ): Promise<UpdatedModel> {
-    return await this.model.updateOne(filter, updated, options);
-  }
-
-  async updateMany(
-    filter: FilterQuery<T>,
-    updated: UpdateWithAggregationPipeline | UpdateQuery<T>,
-    options?: QueryOptions,
-  ): Promise<UpdatedModel> {
-    return await this.model.updateMany(filter, updated, options);
+  update(id: string, data: AnyKeys<T>): Promise<T> {
+    return this.model.findByIdAndUpdate(id, data, {
+      new: true,
+      upsert: true,
+    });
   }
 }

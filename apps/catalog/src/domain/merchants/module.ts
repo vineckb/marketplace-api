@@ -8,12 +8,13 @@ import { DatabaseModule } from '../../infra/database/database.module';
 
 @Module({
   imports: [DatabaseModule],
+
   providers: [
-    ...merchantsProviders,
+    MerchantsResolver,
     MerchantsService,
     MerchantRepository,
     MerchantEntity,
-    MerchantsResolver,
+    ...merchantsProviders,
   ],
 })
 export class MerchantModule {}
