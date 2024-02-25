@@ -29,6 +29,10 @@ const handleAuth = ({ req }) => {
   }
 };
 
+const catalogService = new RemoteGraphQLDataSource({
+  url: 'https://localhost:3001/graphql',
+});
+
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
@@ -53,6 +57,12 @@ const handleAuth = ({ req }) => {
             { name: 'cart', url: 'http://localhost:3002/graphql' },
           ],
         }),
+        // supergraphSdl: new IntrospectAndCompose({
+        //   subgraphs: [
+        //     { name: 'catalog', url: 'http://localhost:3001/graphql' },
+        //     { name: 'cart', url: 'http://localhost:3002/graphql' },
+        //   ],
+        // }),
       },
     }),
   ],

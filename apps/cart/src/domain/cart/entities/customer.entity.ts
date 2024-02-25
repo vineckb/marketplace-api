@@ -1,11 +1,14 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 
 @ObjectType()
 @Schema()
+@Directive('@key(fields: "_id")')
 export class Customer {
   @Field(() => ID)
-  id: string;
+  @Prop(() => mongoose.Schema.Types.ObjectId)
+  _id: string;
 
   @Field(() => String)
   @Prop()

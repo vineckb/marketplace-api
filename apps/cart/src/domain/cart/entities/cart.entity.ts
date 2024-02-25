@@ -1,11 +1,12 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Directive, ID } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Customer } from './customer.entity';
-import { MerchantEntity } from './merchant.entity';
+import { Merchant } from './merchant.entity';
+import mongoose from 'mongoose';
 
 export class ProductWithMerchant {
-  id: string;
-  merchant: MerchantEntity;
+  _id: string;
+  merchant: Merchant;
   title: string;
   media: string;
   sectionName: string;
@@ -16,9 +17,11 @@ export class ProductWithMerchant {
 
 @ObjectType()
 @Schema()
+@Directive('@key(fields: "_id")')
 export class Cart {
-  @Field(() => String)
-  id: string;
+  @Field(() => ID)
+  @Prop(() => mongoose.Schema.Types.ObjectId)
+  _id: string;
 
   @Field()
   @Prop({ required: true })
@@ -52,13 +55,13 @@ export class Cart {
   @Prop({ required: true })
   customer: Customer;
 
-  @Field(() => [MerchantEntity!])
+  @Field(() => [Merchant!])
   @Prop()
-  merchants: Array<MerchantEntity>;
+  merchants: Array<Merchant>;
 
   addProduct(product: ProductWithMerchant): void {
     const merchantIndex = this.merchants.findIndex(
-      (merchant) => merchant.id === product.merchant.id,
+      (merchant) => merchant._id === product.merchant._id,
     );
 
     if (merchantIndex >= 0) {
@@ -84,7 +87,7 @@ export class Cart {
   updateQuantity(productId: string, quantity: number) {
     this.merchants.forEach((merchant, merchantIndex) => {
       const productIndex = merchant.products.findIndex(
-        (product) => product.id === productId,
+        (product) => product._id === productId,
       );
 
       if (productIndex >= 0) {
@@ -113,7 +116,7 @@ export class Cart {
   removeProduct(productId: string) {
     this.merchants.forEach((merchant, merchantIndex) => {
       const productIndex = merchant.products.findIndex(
-        (product) => product.id === productId,
+        (product) => product._id === productId,
       );
 
       if (productIndex >= 0) {
