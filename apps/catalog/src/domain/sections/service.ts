@@ -21,8 +21,8 @@ export class SectionsService {
     return this.sectionRepository.findById(id);
   }
 
-  async update({ _id, ...input }: UpdateSectionInput) {
-    return this.sectionRepository.update(_id, input);
+  async update({ id, ...input }: UpdateSectionInput) {
+    return this.sectionRepository.update(id, input);
   }
 
   remove(id: string) {

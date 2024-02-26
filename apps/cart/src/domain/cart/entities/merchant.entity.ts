@@ -1,41 +1,29 @@
-import { ObjectType, Field, Directive, ID } from '@nestjs/graphql';
-import { Prop, Schema } from '@nestjs/mongoose';
-import { Product } from './product.entity';
-import mongoose from 'mongoose';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { CartItem } from './cart-item.entity';
 
 @ObjectType()
-@Schema()
-@Directive('@key(fields: "_id")')
-export class Merchant {
+export class CartMerchant {
   @Field(() => ID)
-  @Prop(() => mongoose.Schema.Types.ObjectId)
-  _id: string;
+  id: string;
 
   @Field(() => String)
-  @Prop()
   name: string;
 
   @Field(() => String)
-  @Prop()
   media: string;
 
   @Field(() => Number)
-  @Prop()
   subtotal: number;
 
   @Field(() => Number)
-  @Prop()
   shippingTax: number;
 
   @Field(() => Number)
-  @Prop()
   pickingTax: number;
 
   @Field(() => Number)
-  @Prop()
   minOrder: number;
 
-  @Field(() => [Product!])
-  @Prop()
-  products: Array<Product>;
+  @Field(() => [CartItem!])
+  products: Array<CartItem>;
 }

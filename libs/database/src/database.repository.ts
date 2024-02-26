@@ -12,7 +12,7 @@ export abstract class DatabaseRepository<
     const createdDocument = await this.model.collection.insertOne(document);
 
     return {
-      _id: createdDocument.insertedId.toString(),
+      id: createdDocument.insertedId.toString(),
       created: !!createdDocument.insertedId,
     };
   }
@@ -34,7 +34,7 @@ export abstract class DatabaseRepository<
   }
 
   async remove(id: string): Promise<RemovedModel> {
-    const { deletedCount } = await this.model.deleteOne({ _id: id });
+    const { deletedCount } = await this.model.deleteOne({ id: id });
     console.log('deletedCount', deletedCount);
     return { deletedCount, deleted: !!deletedCount };
   }

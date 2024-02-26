@@ -1,15 +1,16 @@
 import { Field, ObjectType, Query, Resolver } from '@nestjs/graphql';
+import { Cart } from './entities/cart.entity';
 
 @ObjectType()
-class ReturnType {
+export class ReturnType {
   @Field()
   msg: string;
 }
 
-@Resolver()
+@Resolver(() => Cart)
 export class CartResolver {
   @Query(() => ReturnType)
-  hello() {
+  hellos() {
     return { msg: 'Hello Wolrd' };
   }
 }

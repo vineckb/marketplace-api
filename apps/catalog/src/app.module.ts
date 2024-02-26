@@ -16,7 +16,6 @@ import { SectionModule } from './domain/sections/module';
       include: [ProductModule, MerchantModule, SectionModule],
     }),
     ProductModule,
-
     MerchantModule,
     SectionModule,
   ],

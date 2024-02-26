@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Customer {
+  id: ID!
+  name: String!
+  pictureUrl: String!
+  latitude: String!
+  longitude: String!
+}
+
+type CartItem {
+  id: ID!
+  title: String!
+  media: String!
+  sectionName: String!
+  sectionId: Float!
+  price: Float!
+  quantity: Float!
+}
+
+type CartMerchant {
+  id: ID!
+  name: String!
+  media: String!
+  subtotal: Float!
+  shippingTax: Float!
+  pickingTax: Float!
+  minOrder: Float!
+  products: [CartItem!]!
+}
+
+type ReturnType {
+  msg: String!
+}
+
+type Query {
+  hellos: ReturnType!
+}

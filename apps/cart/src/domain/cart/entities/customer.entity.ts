@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 
 @ObjectType()
 @Schema()
-@Directive('@key(fields: "_id")')
+@Directive('@key(fields: "id")')
 export class Customer {
   @Field(() => ID)
   @Prop(() => mongoose.Schema.Types.ObjectId)
-  _id: string;
+  id: string;
 
   @Field(() => String)
   @Prop()

@@ -1,20 +1,19 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { CartRepository } from './cart/repositories/cart.repository';
-import { Customer } from './cart/entities/customer.entity';
-import { Cart } from './cart/entities/cart.entity';
-import { ClientProxy } from '@nestjs/microservices';
-import { Merchant } from './cart/entities/merchant.entity';
-import { AddProductInput } from './cart/dto/add-product.input';
+import { Injectable } from '@nestjs/common';
+import { CartRepository } from './repositories/cart.repository';
+import { Customer } from './entities/customer.entity';
+import { Cart } from './entities/cart.entity';
+import { AddProductInput } from './dto/add-product.input';
+import { CartMerchant } from './entities/merchant.entity';
 
 @Injectable()
 export class CartService {
   constructor(
     private readonly cartRepository: CartRepository,
-    @Inject('CatalogService') private readonly catalogService: ClientProxy,
+    // @Inject('CatalogService') private readonly catalogService: ClientProxy,
   ) {}
 
   async getOrCreate(customer: Customer): Promise<Cart> {
-    const activeCart = await this.cartRepository.findActive(customer._id);
+    const activeCart = await this.cartRepository.findActive(customer.id);
 
     if (activeCart) {
       return activeCart;
@@ -28,14 +27,14 @@ export class CartService {
     return newCart;
   }
 
-  async addMerchant(cartId: string, merchant: Merchant): Promise<void> {
+  async addMerchant(cartId: string, merchant: CartMerchant): Promise<void> {
     const cart = await this.cartRepository.findOne(cartId);
 
     if (!cart) {
       throw new Error('Cart not found');
     }
 
-    const merchantExists = cart.merchants.find((m) => m._id === merchant._id);
+    const merchantExists = cart.merchants.find((m) => m.id === merchant.id);
 
     if (merchantExists) {
       throw new Error('Merchant already exists in cart');

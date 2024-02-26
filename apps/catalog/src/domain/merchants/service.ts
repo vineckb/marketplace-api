@@ -19,8 +19,8 @@ export class MerchantsService {
     return this.merchantRepository.findById(id);
   }
 
-  update({ _id, ...input }: UpdateMerchantInput) {
-    return this.merchantRepository.update(_id, input);
+  update({ id, ...input }: UpdateMerchantInput) {
+    return this.merchantRepository.update(id, input);
   }
 
   remove(id: string) {

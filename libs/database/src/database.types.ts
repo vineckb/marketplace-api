@@ -3,7 +3,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class CreatedModel {
   @Field()
-  _id: string;
+  id: string;
 
   @Field()
   created: boolean;

@@ -6,5 +6,5 @@ import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 export class UpdateProductInput extends PartialType(CreateProductInput) {
   @Field(() => ID)
   @Prop()
-  _id: string;
+  id: string;
 }

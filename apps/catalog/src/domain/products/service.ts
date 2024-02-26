@@ -21,8 +21,8 @@ export class ProductsService {
     return this.productRepository.findById(id);
   }
 
-  update({ _id, ...input }: UpdateProductInput) {
-    return this.productRepository.update(_id, input);
+  update({ id, ...input }: UpdateProductInput) {
+    return this.productRepository.update(id, input);
   }
 
   remove(id: string) {

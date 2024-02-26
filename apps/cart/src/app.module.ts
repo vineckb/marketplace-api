@@ -12,12 +12,11 @@ import { CartModule } from './domain/cart/module';
     MongooseModule.forRoot('mongodb://localhost/nest'),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: { path: 'schema.gql', federation: 2 },
+      autoSchemaFile: { path: './schema2.gql', federation: 2 },
       include: [CartModule],
     }),
+    CartModule,
   ],
-
-  controllers: [],
   providers: [],
 })
 export class AppModule {}
